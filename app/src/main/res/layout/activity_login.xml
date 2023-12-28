@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/black"
+    android:layoutDirection="ltr">
+    <TextView
+        android:id="@+id/tvLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:textSize="50dp"
+        android:textColor="@color/white">
+    </TextView>
+<EditText
+    android:id="@+id/etUserName"
+    android:layout_width="120dp"
+    android:layout_height="50dp"
+    android:hint="user name"
+    android:textColorHint="@color/white"
+    android:layout_marginLeft="10dp"
+    android:textColor="@color/white">
+</EditText>
+    <EditText
+        android:layout_marginLeft="10dp"
+        android:id="@+id/etPassword"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:hint="password"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white">
+    </EditText>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="25dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="profile"
+            android:textColor="@color/white"/>
+
+        <Spinner
+            android:id="@+id/btnDrop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            android:backgroundTint="@color/white"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="7dp"
+        android:text="enter">
+    </Button>
+
+</LinearLayout>
