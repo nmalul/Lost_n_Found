@@ -4,14 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,49 +18,36 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-Button btnEnter;
-Spinner btnDrop;
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+    FirebaseAuth auth;
+    Button btnEnter;
+    TextView tvError;
 EditText etEmail,etPassword;
-TextView tvError,tvSignUp;
-FirebaseAuth auth;
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        btnEnter=findViewById(R.id.btnEnter);
-        btnEnter.setOnClickListener(this);
-        btnDrop=findViewById(R.id.btnDrop);
-        String[] items = new String[]{"1", "2", "three"};
-        ArrayAdapter<String>adapter=new ArrayAdapter<String>(LoginActivity.this, android.R.layout.simple_spinner_dropdown_item,items);
-        btnDrop.setAdapter(adapter);
-        auth=FirebaseAuth.getInstance();
+        setContentView(R.layout.activity_sign_up);
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
+        btnEnter=findViewById(R.id.btnEnter);
+        auth=FirebaseAuth.getInstance();
+        btnEnter.setOnClickListener(this);
         tvError=findViewById(R.id.tvError);
-        tvSignUp=findViewById(R.id.tvSignUp);
-        tvSignUp.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View v) {
-        if(v==tvSignUp){
-            Intent intent=new Intent(this,SignUpActivity.class);
-            startActivityForResult(intent,0);
-        }
         if(v==btnEnter){
             DBManager.getAuth().signInWithEmailAndPassword(etEmail.getText().toString(),etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Log.d("user Auth","user signed in successfully");
-                        Toast.makeText(LoginActivity.this,"susccessful sign-in",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignUpActivity.this,"susccessful sign-in",Toast.LENGTH_LONG).show();
                     }
                     else {
-                        Toast.makeText(LoginActivity.this,task.getException().getClass().getName(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this,task.getException().getClass().getName(),Toast.LENGTH_SHORT).show();
                         if(task.getException() instanceof FirebaseAuthUserCollisionException){
                             tvError.setText("already exists" );
                         }
