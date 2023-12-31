@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -59,19 +60,14 @@ FirebaseAuth auth;
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Log.d("user Auth","user signed in successfully");
-                        Toast.makeText(LoginActivity.this,"susccessful sign-in",Toast.LENGTH_LONG).show();
+                        Log.d("User Auth","User Sign in successfully");
+                        finish();
                     }
-                    else {
-                        Toast.makeText(LoginActivity.this,task.getException().getClass().getName(),Toast.LENGTH_SHORT).show();
-                        if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                            tvError.setText("already exists" );
-                        }
-                        Log.d("User Auth","User creation failed");
+                    else if(task.getException() instanceof FirebaseAuthInvalidUserException){
+                        Log.d("User Auth","problem");
                     }
                 }
-            });
-            finish();
+            })
         }
     }
 }
