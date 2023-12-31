@@ -55,22 +55,6 @@ FirebaseAuth auth;
             startActivityForResult(intent,0);
         }
         if(v==btnEnter){
-            DBManager.getAuth().signInWithEmailAndPassword(etEmail.getText().toString(),etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Log.d("user Auth","user signed in successfully");
-                        Toast.makeText(LoginActivity.this,"susccessful sign-in",Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Toast.makeText(LoginActivity.this,task.getException().getClass().getName(),Toast.LENGTH_SHORT).show();
-                        if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                            tvError.setText("already exists" );
-                        }
-                        Log.d("User Auth","User creation failed");
-                    }
-                }
-            });
             finish();
         }
     }
