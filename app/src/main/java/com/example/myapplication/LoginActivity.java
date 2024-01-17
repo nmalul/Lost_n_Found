@@ -55,19 +55,38 @@ FirebaseAuth auth;
             Intent intent=new Intent(this,SignUpActivity.class);
             startActivityForResult(intent,0);
         }
-        if(v==btnEnter){
-            DBManager.getAuth().signInWithEmailAndPassword(etEmail.getText().toString(),etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Log.d("User Auth","User Sign in successfully");
-                        finish();
+        if(v==btnEnter) {
+
+            if (!etEmail.getText().toString() .equals("") && !etPassword.getText().toString().equals("")) {
+                DBManager.getAuth().signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("User Auth", "User Sign in successfully");
+                            finish();
+                        } else if (task.getException() instanceof FirebaseAuthInvalidUserException) {
+                            Log.d("User Auth", "problem");
+                        }{
+
+                        }
                     }
-                    else if(task.getException() instanceof FirebaseAuthInvalidUserException){
-                        Log.d("User Auth","problem");
-                    }
-                }
-            })
+                });
+
+            }
+            else if(etEmail.getText().toString().equals("")& etPassword.getText().toString().equals("")) {
+                etEmail.setError("please enter email");
+                etPassword.setError("please enter password");
+                tvError.setText("email and password are empty");
+            }
+            else if(etEmail.getText().toString().equals("")&!etPassword.getText().toString().equals("")){
+                etPassword.setError("please enter email");
+                tvError.setText("email is empty");
+            }
+            else{
+                etPassword.setError("please enter password");
+                tvError.setText("password is empty");
+            }
+
         }
     }
 }

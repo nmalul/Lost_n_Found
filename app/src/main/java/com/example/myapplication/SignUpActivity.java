@@ -46,37 +46,49 @@ EditText etEmail,etPassword;
 
     @Override
     public void onClick(View v) {
-        if(v==btnEnter){
-            DBManager.getAuth().createUserWithEmailAndPassword(etEmail.getText().toString(),etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Log.d("user Auth","user signed in successfully");
-                        Toast.makeText(SignUpActivity.this,"successful sign-in",Toast.LENGTH_LONG).show();
-                        User user=new User();
-                        Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
-                        startActivityForResult(intent,0);
-                    }
-
-                       else if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                        Log.d("User Auth","User creation failed");
+        if (v == btnEnter) {
+            if (!etEmail.getText().toString().equals("") & !etPassword.getText().toString().equals("")) {
+                DBManager.getAuth().createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("user Auth", "user signed in successfully");
+                            Toast.makeText(SignUpActivity.this, "successful sign-in", Toast.LENGTH_LONG).show();
+                            User user = new User();
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            startActivityForResult(intent, 0);
+                        } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            Log.d("User Auth", "User creation failed");
                             tvError.setText("already exists");
-                        Toast.makeText(SignUpActivity.this,"h",Toast.LENGTH_LONG).show();
-                        }
-                        else if(task.getException() instanceof FirebaseAuthWeakPasswordException){
-                        Log.d("User Auth","User creation failed");
+                            Toast.makeText(SignUpActivity.this, "h", Toast.LENGTH_LONG).show();
+                        } else if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                            Log.d("User Auth", "User creation failed");
                             tvError.setText("password is weak");
-                        Toast.makeText(SignUpActivity.this,"h",Toast.LENGTH_LONG).show();
-                        } else if (task.getException()instanceof FirebaseAuthEmailException) {
-                        Log.d("User Auth","User creation failed");
+                            etPassword.setError("please enter stronger password");
+                        } else if (task.getException() instanceof FirebaseAuthEmailException) {
+                            Log.d("User Auth", "User creation failed");
                             tvError.setText("email isn't right");
-                            Toast.makeText(SignUpActivity.this,"h",Toast.LENGTH_LONG).show();
+                            etEmail.setError("please enter an email");
+                        } else {
+                            Toast.makeText(SignUpActivity.this, "something else went wrong", Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            Toast.makeText(SignUpActivity.this,"ffff",Toast.LENGTH_LONG).show();
                     }
-                }
-            });
+                });
+            }
+            else if(etEmail.getText().toString().equals("")& etPassword.getText().toString().equals("")) {
+                etEmail.setError("please enter email");
+                etPassword.setError("please enter password");
+                tvError.setText("email and password are empty");
+            }
+            else if(etEmail.getText().toString().equals("")&!etPassword.getText().toString().equals("")){
+                etPassword.setError("please enter email");
+                tvError.setText("email is empty");
+            }
+            else{
+                etPassword.setError("please enter password");
+                tvError.setText("password is empty");
+            }
         }
     }
+
 }
