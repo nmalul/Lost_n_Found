@@ -28,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseDatabase db;
     Button btnEnter;
     TextView tvError;
+
 EditText etEmail,etPassword;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,7 +55,8 @@ EditText etEmail,etPassword;
                         if (task.isSuccessful()) {
                             Log.d("user Auth", "user signed in successfully");
                             Toast.makeText(SignUpActivity.this, "successful sign-in", Toast.LENGTH_LONG).show();
-                            User user = new User();
+                            Person person = new Person();
+                            DataManager.AddNewPerson(person);
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivityForResult(intent, 0);
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
