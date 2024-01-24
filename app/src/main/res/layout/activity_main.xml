@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#575E83"
+    android:background="#91270D"
     android:layoutDirection="ltr"
     >
     <LinearLayout
@@ -33,7 +33,7 @@
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:layout_marginTop="20dp"
-        android:background="#10A7AC"
+        android:background="#9A1924"
         android:textSize="20dp"/>
     <Button
         android:id="@+id/btnRooms"
@@ -41,7 +41,7 @@
         android:layout_height="100dp"
         android:text="room review"
         android:textSize="20dp"
-        android:background="#009688"
+        android:background="#9A1924"
         android:layout_marginTop="20dp"/>
 </LinearLayout>
 </LinearLayout>

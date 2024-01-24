@@ -49,6 +49,33 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginTop="20dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="profile"
+            android:textColor="@color/white"
+
+            />
+        <Spinner
+            android:id="@+id/btnDrop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            android:backgroundTint="@color/white"
+            />
+        </LinearLayout>
+    <Button
+        android:id="@+id/btnEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="7dp"
+        android:text="enter">
+    </Button>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,29 +95,10 @@
         android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="profile"
-            android:textColor="@color/white"
 
-            />
 
-        <Spinner
-            android:id="@+id/btnDrop"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:spinnerMode="dropdown"
-            android:backgroundTint="@color/white"
-            />
+
+
     </LinearLayout>
-    <Button
-        android:id="@+id/btnEnter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="20dp"
-        android:text="enter">
-    </Button>
     </LinearLayout>
 </LinearLayout>

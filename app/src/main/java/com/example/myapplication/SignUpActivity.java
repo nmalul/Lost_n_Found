@@ -55,7 +55,7 @@ EditText etEmail,etPassword;
                         if (task.isSuccessful()) {
                             Log.d("user Auth", "user signed in successfully");
                             Toast.makeText(SignUpActivity.this, "successful sign-in", Toast.LENGTH_LONG).show();
-                            Person person = new Person();
+                            Person person = new Person(etEmail.getText().toString());
                             DataManager.AddNewPerson(person);
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivityForResult(intent, 0);
