@@ -23,7 +23,7 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
     ItemAdapter itemAdapter;
     Button btnAdd,btnDone,btnDaily;
     Items lastSelected;
-    String name;
+    String name,id;
     ListView lvItems;
 
     Boolean pressedDaily =false;
@@ -34,7 +34,7 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
         lv = findViewById(R.id.lvItems);
-        Items i1 = new Items("keys");
+        Items i1 = new Items("keys","home","id");
         if (itemList == null) {
             itemList = new ArrayList<Items>();
             itemList.add(i1);
@@ -123,7 +123,8 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
             } else if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
                     name = data.getExtras().getString("NAME");
-                    Items item = new Items(name);
+                    id=data.getExtras().getString("ID");
+                    Items item = new Items(name,id,"Home");
                     itemAdapter.add(item);
                     itemAdapter.notifyDataSetChanged();
                 }

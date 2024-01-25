@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class EditItemsActivity extends AppCompatActivity implements View.OnClickListener {
     static ArrayList<Items> itemList;
     ListView lv;
+    EditText etId;
     ItemAdapter itemAdapter;
     Button btnAdd,btnDone,btnRemove;
     Items lastSelected;
@@ -25,9 +27,9 @@ public class EditItemsActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        etId=findViewById(R.id.etId);
         lv = findViewById(R.id.lvItems);
-        Items i1 = new Items("keys");
+        Items i1 = new Items("keys","home","id");
         if( itemList==null )
         {
             itemList = new ArrayList<Items>();
@@ -45,6 +47,7 @@ public class EditItemsActivity extends AppCompatActivity implements View.OnClick
                 lastSelected = itemAdapter.getItem(position);
                 Intent intent = new Intent(EditItemsActivity.this, EditActivity.class);
                 getIntent().putExtra("NAME", lastSelected.getItem());
+                getIntent().putExtra("ID",lastSelected.getId());
                 startActivityForResult(intent, 0);
             }
         });
@@ -85,7 +88,7 @@ public class EditItemsActivity extends AppCompatActivity implements View.OnClick
             } else if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
                     name = data.getExtras().getString("NAME");
-                    Items item = new Items(name);
+                    Items item = new Items(name,"home",etId.getText().toString());
                     itemAdapter.add(item);
                     itemAdapter.notifyDataSetChanged();
                 }

@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layoutDirection="ltr"
-    >
+    android:descendantFocusability="blocksDescendants">
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,10 +42,16 @@
             android:text="location "
             android:textSize="20dp"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="5dp"
             android:textColor="#3A873D"
             ></TextView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="buzz"></Button>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
