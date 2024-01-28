@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -7,16 +8,14 @@ public class Items {
 
 
 
-    private String id,location, item;
+    private String id,location, item,email;
     Button btnBuzz;
-
 
 
 
     public Items(String item,String location,String id){
         this.item=item;
         this.location=location;
-        this.id=id;
     }
     public String getItem(){
         return this.item;

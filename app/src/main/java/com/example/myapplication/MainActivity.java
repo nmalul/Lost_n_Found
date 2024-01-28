@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnRooms, btnItemList, btnAlert;
     Boolean clicked = false;
     Ringtone ringtone;
-    String nov ="0";
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

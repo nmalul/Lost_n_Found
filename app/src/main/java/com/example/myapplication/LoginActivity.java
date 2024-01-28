@@ -63,6 +63,7 @@ FirebaseAuth auth;
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("User Auth", "User Sign in successfully");
+                            getIntent().putExtra("EMAIL",etEmail.getText().toString());
                             finish();
                         } else if (task.getException() instanceof FirebaseAuthInvalidUserException) {
                             Log.d("User Auth", "problem");
