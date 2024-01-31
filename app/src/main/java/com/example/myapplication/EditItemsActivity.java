@@ -19,7 +19,7 @@ public class EditItemsActivity extends AppCompatActivity implements View.OnClick
     ListView lv;
     EditText etId;
     ItemAdapter itemAdapter;
-    Button btnAdd,btnDone,btnRemove;
+    Button btnAdd,btnDone;
     Items lastSelected;
     String name;
 
@@ -29,7 +29,7 @@ public class EditItemsActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         etId=findViewById(R.id.etId);
         lv = findViewById(R.id.lvItems);
-        Items i1 = new Items("keys","home","id");
+        Items i1 = new Items("keys","id");
         if( itemList==null )
         {
             itemList = new ArrayList<Items>();
@@ -88,7 +88,7 @@ public class EditItemsActivity extends AppCompatActivity implements View.OnClick
             } else if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
                     name = data.getExtras().getString("NAME");
-                    Items item = new Items(name,"home",etId.getText().toString());
+                    Items item = new Items(name,etId.getText().toString());
                     itemAdapter.add(item);
                     itemAdapter.notifyDataSetChanged();
                 }

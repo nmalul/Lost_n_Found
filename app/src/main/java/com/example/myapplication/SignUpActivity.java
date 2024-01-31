@@ -56,7 +56,9 @@ EditText etEmail,etPassword;
                             Log.d("user Auth", "user signed in successfully");
                             Toast.makeText(SignUpActivity.this, "successful sign-in", Toast.LENGTH_LONG).show();
                             Person person = new Person(etEmail.getText().toString());
-                            DataManager.AddNewPerson(person);
+                            Home home=new Home(etEmail.getText().toString());
+                            home.AddPerson(person);
+                            DataManager.AddNewHome(home);
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivityForResult(intent, 0);
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {

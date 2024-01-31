@@ -3,17 +3,17 @@ package com.example.myapplication;
 import java.util.ArrayList;
 
 public class DataManager {
-    private static ArrayList<Person> people;
-    private static final String  dbMainList="People";
+    private static ArrayList<Home> homes;
+    private static final String  dbMainList="homes";
 
-public static ArrayList<Person> GetPeople(){
-if(people==null){
-    people=new ArrayList<Person>();
+public static ArrayList<Home> GetHomes(){
+if(homes==null){
+    homes=new ArrayList<Home>();
 }
-return people;
+return homes;
 }
-public static void AddNewPerson(Person person){
-    GetPeople().add(person);
-    DBManager.getDatabase().getReference(dbMainList).setValue(people);
+public static void AddNewHome(Home home){
+    GetHomes().add(home);
+    DBManager.getDatabase().getReference(dbMainList).setValue(homes);
 }
 }

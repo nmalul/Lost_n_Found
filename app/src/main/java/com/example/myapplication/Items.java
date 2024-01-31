@@ -8,14 +8,17 @@ public class Items {
 
 
 
-    private String id,location, item,email;
-    Button btnBuzz;
+    private String id;
+    private String location;
+    private String item;
+    private String email;
+    public Items(){
 
+    }
 
-
-    public Items(String item,String location,String id){
+    public Items(String item,String id){
         this.item=item;
-        this.location=location;
+
     }
     public String getItem(){
         return this.item;
@@ -28,6 +31,14 @@ public class Items {
     }
     public String getId() {
         return id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
 }

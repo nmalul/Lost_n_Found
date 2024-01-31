@@ -2,9 +2,11 @@ package com.example.myapplication;
 
 import android.widget.ListView;
 
+import java.util.List;
+
 public class Person {
     String boy="boy";
-    ItemList items;
+    List<Items> items;
     String email;
     public Person(String email){
         this.email=email;
@@ -17,11 +19,11 @@ public class Person {
     public String getBoy() {
         return boy;
     }
-    public void setItems(ItemList items) {
+    public void setItems(List<Items> items) {
         this.items = items;
     }
 
-    public ItemList getItems() {
+    public List<Items> getItems() {
         return items;
     }
 
