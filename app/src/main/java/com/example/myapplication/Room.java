@@ -6,4 +6,7 @@ import java.util.ArrayList;
 
 public class Room {
     private static ArrayList<Items>items;
+
+    public Room() {
+    }
 }

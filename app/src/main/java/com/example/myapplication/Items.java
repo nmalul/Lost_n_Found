@@ -11,14 +11,15 @@ public class Items {
     private String id;
     private String location;
     private String item;
-    private String email;
+
     public Items(){
 
     }
 
-    public Items(String item,String id){
+    public Items(String item,String id,String email){
         this.item=item;
-
+        this.id=email+"."+id;
+        this.location=" ";
     }
     public String getItem(){
         return this.item;
@@ -33,12 +34,5 @@ public class Items {
         return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 
 }

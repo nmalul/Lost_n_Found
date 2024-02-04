@@ -34,7 +34,7 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
         lv = findViewById(R.id.lvItems);
-        Items i1 = new Items("keys","id");
+        Items i1 = new Items("keys","id","email");
         if (itemList == null) {
             itemList = new ArrayList<Items>();
             itemList.add(i1);
@@ -85,6 +85,7 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
 
         if (v == btnAdd&pressedDaily!=true) {
             Intent intent = new Intent(this, EditActivity.class);
+            intent.putExtra("EMAIL",getIntent().getStringExtra("EMAIL"));
             startActivityForResult(intent, 1);
         }
         if(v==btnDone&pressedDaily!=true){
@@ -124,7 +125,7 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
                 if (resultCode == RESULT_OK) {
                     name = data.getExtras().getString("NAME");
                     id=data.getExtras().getString("ID");
-                    Items item = new Items(name,id);
+                    Items item = new Items(name,id,"email");
                     itemAdapter.add(item);
                     itemAdapter.notifyDataSetChanged();
                 }

@@ -34,7 +34,7 @@ Button btnSave,btnCancel;
     public void onClick(View v) {
         if(btnSave==v){
             if(etName.getText().toString().length()>0){
-                Items item= new Items(etName.getText().toString(),etId.getText().toString());
+                Items item= new Items(etName.getText().toString(),etId.getText().toString(),getIntent().getStringExtra("EMAIL"));
                 Intent intent=new Intent();
                 intent.putExtra("NAME",etName.getText().toString());
                 intent.putExtra("ID",etId.getText().toString());

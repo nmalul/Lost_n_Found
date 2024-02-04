@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v == btnItemList) {
             Intent intent = new Intent(this, ItemList.class);
+            intent.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
             startActivityForResult(intent, 0);
         }
         if (v == btnAlert) {

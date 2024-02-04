@@ -2,28 +2,31 @@ package com.example.myapplication;
 
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
-    String boy="boy";
-    List<Items> items;
+
+    ArrayList<Items> items;
     String email;
     public Person(String email){
         this.email=email;
+        this.items= new ArrayList<Items>();
+    }
+
+    public Person() {
     }
 
     public void setBoy(String boy) {
-        this.boy = boy;
+
     }
 
-    public String getBoy() {
-        return boy;
-    }
-    public void setItems(List<Items> items) {
+
+    public void setItems(ArrayList<Items> items) {
         this.items = items;
     }
 
-    public List<Items> getItems() {
+    public ArrayList<Items> getItems() {
         return items;
     }
 
