@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Person {
 
-    ArrayList<Items> items;
-    String email;
+    private ArrayList<Items> items;
+    private String email;
     public Person(String email){
         this.email=email;
         this.items= new ArrayList<Items>();
@@ -31,5 +31,15 @@ public class Person {
     }
 
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+public void AddNewItem(Items item){
+        getItems().add(item);
+}
 
 }

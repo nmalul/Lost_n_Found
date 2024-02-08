@@ -20,14 +20,15 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnRooms, btnItemList, btnAlert;
     Boolean clicked = false;
     Ringtone ringtone;
     @SuppressLint("MissingInflatedId")
+    Button btnRooms, btnItemList, btnAlert;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DataManager.pullHomes();
         btnRooms = findViewById(R.id.btnRooms);
         btnRooms.setOnClickListener(this);
         btnItemList = findViewById(R.id.btnItemList);

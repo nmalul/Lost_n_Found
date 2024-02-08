@@ -16,6 +16,10 @@ public class Home {
     this.people = new ArrayList<Person>();
     }
 
+    public ArrayList<Person> getPeople() {
+        return people;
+    }
+
     public void AddPerson(Person person) {
         this.people.add(person);
     }
