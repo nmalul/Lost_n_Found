@@ -28,26 +28,35 @@ Spinner btnDrop;
 EditText etEmail,etPassword;
 TextView tvError,tvSignUp;
 FirebaseAuth auth;
+Home home;
+Person person;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        btnEnter=findViewById(R.id.btnEnter);
-        btnEnter.setOnClickListener(this);
-        btnDrop=findViewById(R.id.btnDrop);
-        String[] items = new String[]{"1", "2", "three"};
-        ArrayAdapter<String>adapter=new ArrayAdapter<String>(LoginActivity.this, android.R.layout.simple_spinner_dropdown_item,items);
-        btnDrop.setAdapter(adapter);
-        auth=FirebaseAuth.getInstance();
-        etEmail=findViewById(R.id.etEmail);
-        etPassword=findViewById(R.id.etPassword);
-        tvError=findViewById(R.id.tvError);
-        tvSignUp=findViewById(R.id.tvSignUp);
-        tvSignUp.setOnClickListener(this);
+        String[] people = new String[]{};
+        for (int i = 0; i < DataManager.GetHomes().size(); i++) {
+            if (DataManager.GetHomes().get(i).getEmail().equals(etEmail.getText().toString())) {
+                home = DataManager.GetHomes().get(i);
+            }
+            for (int j = 0; j < home.getPeople().size(); j++) {
+                people[j] = home.getPeople().get(i).getItems().toString();
+            }
+            btnEnter = findViewById(R.id.btnEnter);
+            btnEnter.setOnClickListener(this);
+            btnDrop = findViewById(R.id.btnDrop);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this, android.R.layout.simple_spinner_dropdown_item, people);
+            btnDrop.setAdapter(adapter);
+            auth = FirebaseAuth.getInstance();
+            etEmail = findViewById(R.id.etEmail);
+            etPassword = findViewById(R.id.etPassword);
+            tvError = findViewById(R.id.tvError);
+            tvSignUp = findViewById(R.id.tvSignUp);
+            tvSignUp.setOnClickListener(this);
+        }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -57,12 +66,17 @@ FirebaseAuth auth;
         }
         if(v==btnEnter) {
 
-            if (!etEmail.getText().toString() .equals("") && !etPassword.getText().toString().equals("")) {
+            if (!etEmail.getText().toString() .equals("") && !etPassword.getText().toString().equals("")&&!btnDrop.getSelectedItem().equals(null)) {
                 DBManager.getAuth().signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("User Auth", "User Sign in successfully");
+                            for(int i=0;i<home.getPeople().size();i++){
+                                if(home.getPeople().get(i).getItems().equals(btnDrop.getSelectedItem().toString())){
+                                    person=home.getPeople().get(i);
+                                }
+                            }
                             getIntent().putExtra("EMAIL",etEmail.getText().toString());
                             finish();
                         } else if (task.getException() instanceof FirebaseAuthInvalidUserException) {
@@ -89,5 +103,8 @@ FirebaseAuth auth;
             }
 
         }
+    }
+    public Person getPerson(){
+        return this.person;
     }
 }

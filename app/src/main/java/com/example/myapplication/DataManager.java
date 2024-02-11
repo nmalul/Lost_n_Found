@@ -29,6 +29,9 @@ public class DataManager {
                 GenericTypeIndicator<ArrayList<Home>> t = new GenericTypeIndicator<ArrayList<Home>>() {
                 };
                 homes = snapshot.getValue(t);
+                if(homes==null){
+                    homes=new ArrayList<Home>();
+                }
             }
 
             @Override

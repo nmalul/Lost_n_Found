@@ -22,6 +22,9 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Boolean clicked = false;
     Ringtone ringtone;
+    String email;
+    Home home;
+    Person person;
     @SuppressLint("MissingInflatedId")
     Button btnRooms, btnItemList, btnAlert;
     @Override
@@ -35,8 +38,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnItemList.setOnClickListener(this);
         btnAlert = findViewById(R.id.btnAlert);
         btnAlert.setOnClickListener(this);
+        email=getIntent().getStringExtra("EMAIL");
         Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), ringtoneUri);
+        for(int i=0; i<DataManager.GetHomes().size();i++){
+            if(DataManager.GetHomes().get(i).getEmail().equals(email)){
+                home=DataManager.GetHomes().get(i);
+            }
+        }
+        for(int j=0;j<home.getPeople().size();j++){
+            if(home.getPeople().get(j).getItems().equals(getIntent().getStringExtra("PERSON"))){
+                person=home.getPeople().get(j);
+            }
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

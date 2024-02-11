@@ -61,8 +61,7 @@ EditText etEmail,etPassword;
                             home.AddPerson(person);
                             Toast.makeText(SignUpActivity.this, home.getPeople().get(0).getEmail(), Toast.LENGTH_LONG).show();
                             DataManager.AddNewHome(home);
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            startActivityForResult(intent, 0);
+                            finish();
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Log.d("User Auth", "User creation failed");
                             tvError.setText("already exists");
