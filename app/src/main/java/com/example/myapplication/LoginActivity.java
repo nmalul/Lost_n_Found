@@ -73,20 +73,18 @@ Person person;
                         if (task.isSuccessful()) {
                             Log.d("User Auth", "User Sign in successfully");
                             for(int i=0;i<home.getPeople().size();i++){
-                                if(home.getPeople().get(i).getItems().equals(btnDrop.getSelectedItem().toString())){
+                                if(home.getPeople().get(i).getName().equals(btnDrop.getSelectedItem().toString())){
                                     person=home.getPeople().get(i);
                                 }
                             }
                             getIntent().putExtra("EMAIL",etEmail.getText().toString());
+                            getIntent().putExtra("PERSON",person.getName());
                             finish();
                         } else if (task.getException() instanceof FirebaseAuthInvalidUserException) {
                             Log.d("User Auth", "problem");
-                        }{
-
                         }
                     }
                 });
-
             }
             else if(etEmail.getText().toString().equals("")& etPassword.getText().toString().equals("")) {
                 etEmail.setError("please enter email");
@@ -103,8 +101,5 @@ Person person;
             }
 
         }
-    }
-    public Person getPerson(){
-        return this.person;
     }
 }

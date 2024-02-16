@@ -45,7 +45,8 @@ public class DataManager {
         GetHomes().add(home);
         DBManager.getDatabase().getReference(dbMainList).setValue(homes);
     }
-    public static void AddNewItem(Items item){
-
+    public static void AddNewItem(Items item,Person person){
+    person.getItems().add(item);
+        DBManager.getDatabase().getReference(dbMainList).setValue(homes);
     }
 }

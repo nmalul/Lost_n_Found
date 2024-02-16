@@ -55,13 +55,13 @@ EditText etEmail,etPassword;
                         if (task.isSuccessful()) {
                             Log.d("user Auth", "user signed in successfully");
                             Toast.makeText(SignUpActivity.this, "successful sign-in", Toast.LENGTH_LONG).show();
-                            Person person = new Person(etEmail.getText().toString());
+                            Person person = new Person(etEmail.getText().toString(),"id","name");
                             Home home=new Home(etEmail.getText().toString());
                             Items item = new Items("a", "b", "c");
                             home.AddPerson(person);
                             Toast.makeText(SignUpActivity.this, home.getPeople().get(0).getEmail(), Toast.LENGTH_LONG).show();
                             DataManager.AddNewHome(home);
-                            finish();
+                            Intent intent=new Intent(this, EditPerson.class);
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Log.d("User Auth", "User creation failed");
                             tvError.setText("already exists");

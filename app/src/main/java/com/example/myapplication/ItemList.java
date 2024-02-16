@@ -126,6 +126,16 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
                     name = data.getExtras().getString("NAME");
                     id=data.getExtras().getString("ID");
                     Items item = new Items(name,id,"email");
+                    for(int i=0;i<DataManager.GetHomes().size();i++){
+                        if(getIntent().getStringExtra("EMAIL").equals(DataManager.GetHomes().get(i).getEmail())){
+                            Home home=DataManager.GetHomes().get(i);
+                            for(int j=0;j<home.getPeople().size();j++){
+                                if(getIntent().getStringExtra("PERSON").equals(home.getPeople().get(j).getName())){
+                                    DataManager.AddNewItem(item,home.getPeople().get(j));
+                                }
+                            }
+                        }
+                    }
                     itemAdapter.add(item);
                     itemAdapter.notifyDataSetChanged();
                 }

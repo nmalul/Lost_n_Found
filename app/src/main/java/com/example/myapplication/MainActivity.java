@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         for(int j=0;j<home.getPeople().size();j++){
-            if(home.getPeople().get(j).getItems().equals(getIntent().getStringExtra("PERSON"))){
+            if(home.getPeople().get(j).getpId().equals(getIntent().getStringExtra("PERSON"))){
                 person=home.getPeople().get(j);
             }
         }
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == btnItemList) {
             Intent intent = new Intent(this, ItemList.class);
             intent.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
+            intent.putExtra("PERSON",getIntent().getStringExtra("PERSON"));
             startActivityForResult(intent, 0);
         }
         if (v == btnAlert) {

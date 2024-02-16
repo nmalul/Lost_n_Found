@@ -9,18 +9,26 @@ public class Person {
 
     private ArrayList<Items> items;
     private String email;
-    public Person(String email){
-        this.email=email;
-        this.items= new ArrayList<Items>();
-    }
+    private String pId;
+   private String name;
 
     public Person() {
     }
-
-    public void setBoy(String boy) {
-
+    public Person(String email,String pId,String name){
+        this.email=email;
+        this.items= new ArrayList<Items>();
+        this.pId=pId;
+        this.name=name;
     }
 
+
+    public void setpId(String pId) {
+        this.pId = pId;
+    }
+
+    public String getpId() {
+        return pId;
+    }
 
     public void setItems(ArrayList<Items> items) {
         this.items = items;
@@ -42,4 +50,12 @@ public void AddNewItem(Items item){
         getItems().add(item);
 }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
+
