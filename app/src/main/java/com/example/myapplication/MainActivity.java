@@ -41,16 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         email=getIntent().getStringExtra("EMAIL");
         Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), ringtoneUri);
-        for(int i=0; i<DataManager.GetHomes().size();i++){
-            if(DataManager.GetHomes().get(i).getEmail().equals(email)){
-                home=DataManager.GetHomes().get(i);
-            }
+        if(email!=null) {
+            home = DataManager.GetHome(email);
         }
-        for(int j=0;j<home.getPeople().size();j++){
-            if(home.getPeople().get(j).getpId().equals(getIntent().getStringExtra("PERSON"))){
-                person=home.getPeople().get(j);
-            }
+        else
+        {Intent intent =new Intent(this,LoginActivity.class);
+            startActivityForResult(intent,0);
         }
+        person=DataManager.GetPerson(home,getIntent().getStringExtra("NAME"));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v == btnItemList) {
             Intent intent = new Intent(this, ItemList.class);
-            intent.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
-            intent.putExtra("PERSON",getIntent().getStringExtra("PERSON"));
+            intent.putExtra("EMAIL", getIntent().getStringExtra(email));
+            intent.putExtra("PERSON",getIntent().getStringExtra(person.getName()));
             startActivityForResult(intent, 0);
         }
         if (v == btnAlert) {

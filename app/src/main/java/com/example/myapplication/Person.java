@@ -12,7 +12,7 @@ public class Person {
     private String pId;
    private String name;
 
-    public Person() {
+    public Person(String name) {
     }
     public Person(String email,String pId,String name){
         this.email=email;

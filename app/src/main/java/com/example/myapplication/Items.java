@@ -34,5 +34,11 @@ public class Items {
         return id;
     }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
+    public String getLocation() {
+        return location;
+    }
 }

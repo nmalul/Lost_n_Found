@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+        <service
+            android:name=".LocationChangeService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".EditPerson"
             android:exported="false" />

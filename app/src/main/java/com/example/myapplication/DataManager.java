@@ -45,8 +45,44 @@ public class DataManager {
         GetHomes().add(home);
         DBManager.getDatabase().getReference(dbMainList).setValue(homes);
     }
+    public static void AddNewPerson(Person person, Home home){
+        home.getPeople().add(person);
+        DBManager.getDatabase().getReference(dbMainList).setValue(home);
+    }
     public static void AddNewItem(Items item,Person person){
     person.getItems().add(item);
         DBManager.getDatabase().getReference(dbMainList).setValue(homes);
+    }
+    public static Home GetHome(String email){
+        for(int i=0;i<homes.size();i++){
+            if(homes.get(i).getEmail().equals(email)){
+                return homes.get(i);
+            }
+        }
+        return null;
+    }
+    public static Person GetPerson(Home home,String name){
+        for(int i=0;i<home.getPeople().size();i++){
+            if(home.getPeople().get(i).getName().equals(name)){
+                return home.getPeople().get(i);
+            }
+        }
+        return null;
+    }
+    public static String CheckLocationChange(Person person, Items item){
+        for(int i=0; i<DataManager.GetHomes().size();i++){
+            if(DataManager.GetHomes().get(i).getEmail().equals(person.getEmail())){
+                for(int j=0;j<DataManager.GetHomes().get(i).getPeople().size();j++){
+                    if(homes.get(i).getPeople().get(j).getName().equals(person.getName())){
+                        for(int k=0;k<DataManager.GetHomes().get(i).getPeople().get(j).getItems().size();k++){
+                            if(!DataManager.GetHomes().get(i).getPeople().get(j).getItems().get(k).getLocation().equals(person.getItems().get(k))){
+                                return ("item: "+ person.getItems().get(k).getItem()+" moved to" + DataManager.GetHomes().get(i).getPeople().get(j).getItems().get(k).getLocation());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

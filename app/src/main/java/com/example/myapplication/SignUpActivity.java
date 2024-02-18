@@ -34,6 +34,9 @@ EditText etEmail,etPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!getIntent().getStringExtra("OVER").equals(null)){
+            finish();
+        }
         setContentView(R.layout.activity_sign_up);
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
@@ -61,7 +64,9 @@ EditText etEmail,etPassword;
                             home.AddPerson(person);
                             Toast.makeText(SignUpActivity.this, home.getPeople().get(0).getEmail(), Toast.LENGTH_LONG).show();
                             DataManager.AddNewHome(home);
-                            Intent intent=new Intent(this, EditPerson.class);
+                            Intent intent=new Intent(SignUpActivity.this, EditPerson.class);
+                            intent.putExtra(etEmail.getText().toString(),"EMAIL");
+                            startActivityForResult(intent,0);
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Log.d("User Auth", "User creation failed");
                             tvError.setText("already exists");

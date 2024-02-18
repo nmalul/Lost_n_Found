@@ -14,12 +14,14 @@ public class EditPerson extends AppCompatActivity implements View.OnClickListene
 
     EditText etName;
     Button btnYes,btnNo,btnSave,btnCancel;
+    String email;
     @SuppressLint("MissingInflatedId")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        email=getIntent().getStringExtra("EMAIL");
         etName=(EditText) findViewById(R.id.etName);
         btnSave=(Button) findViewById(R.id.btnSave);
         btnCancel=(Button) findViewById(R.id.btnCancel);
@@ -38,7 +40,8 @@ public class EditPerson extends AppCompatActivity implements View.OnClickListene
                 Items item= new Items(etName.getText().toString(),"id",getIntent().getStringExtra("EMAIL"));
 
                 Intent intent=new Intent();
-                intent.putExtra("NAME",etName.getText().toString());
+                Person person=new Person(etName.getText().toString());
+                DataManager.AddNewPerson(person,DataManager.GetHome(email));
                 setResult(RESULT_OK,intent);
                 finish();
             }
@@ -48,6 +51,7 @@ public class EditPerson extends AppCompatActivity implements View.OnClickListene
         }
         else if (btnCancel==v){
             setResult(RESULT_CANCELED,null);
+            getIntent().putExtra("over","OVER");
             finish();
         }
 

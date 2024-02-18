@@ -27,6 +27,8 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
     ListView lvItems;
 
     Boolean pressedDaily =false;
+    Home home;
+    Person person;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,6 +36,8 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
         lv = findViewById(R.id.lvItems);
+        home=DataManager.GetHome(getIntent().getStringExtra("EMAIL"));
+        person=DataManager.GetPerson(home,getIntent().getStringExtra("PERSON"));
         Items i1 = new Items("keys","id","email");
         if (itemList == null) {
             itemList = new ArrayList<Items>();
@@ -126,16 +130,7 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
                     name = data.getExtras().getString("NAME");
                     id=data.getExtras().getString("ID");
                     Items item = new Items(name,id,"email");
-                    for(int i=0;i<DataManager.GetHomes().size();i++){
-                        if(getIntent().getStringExtra("EMAIL").equals(DataManager.GetHomes().get(i).getEmail())){
-                            Home home=DataManager.GetHomes().get(i);
-                            for(int j=0;j<home.getPeople().size();j++){
-                                if(getIntent().getStringExtra("PERSON").equals(home.getPeople().get(j).getName())){
-                                    DataManager.AddNewItem(item,home.getPeople().get(j));
-                                }
-                            }
-                        }
-                    }
+                    DataManager.AddNewItem(item,person);
                     itemAdapter.add(item);
                     itemAdapter.notifyDataSetChanged();
                 }
