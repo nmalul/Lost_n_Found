@@ -36,6 +36,7 @@ Person person;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        DataManager.pullHomes();
         String[] people = new String[]{};
         for (int i = 0; i < DataManager.GetHomes().size(); i++) {
             if (DataManager.GetHomes().get(i).getEmail().equals(etEmail.getText().toString())) {
