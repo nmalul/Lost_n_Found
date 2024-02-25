@@ -36,28 +36,42 @@ Person person;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // Initialize UI elements
+        btnEnter = findViewById(R.id.btnEnter);
+        btnDrop = findViewById(R.id.btnDrop);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        tvError = findViewById(R.id.tvError);
+        tvSignUp = findViewById(R.id.tvSignUp);
+
+        // Initialize authentication instance
+        auth = FirebaseAuth.getInstance();
+
+        // Set click listeners
+        btnEnter.setOnClickListener(this);
+        tvSignUp.setOnClickListener(this);
+
+        // Pull homes data
         DataManager.pullHomes();
-        String[] people = new String[]{};
+
+        // Start location change service
+        Intent intent = new Intent(this, LocationChangeService.class);
+        startService(intent);
+
+        // Populate spinner with people
+        String[] people = new String[DataManager.GetHomes().size()];
         for (int i = 0; i < DataManager.GetHomes().size(); i++) {
             if (DataManager.GetHomes().get(i).getEmail().equals(etEmail.getText().toString())) {
                 home = DataManager.GetHomes().get(i);
+                for (int j = 0; j < home.getPeople().size(); j++) {
+                    people[j] = home.getPeople().get(i).getItems().toString();
+                }
             }
-            for (int j = 0; j < home.getPeople().size(); j++) {
-                people[j] = home.getPeople().get(i).getItems().toString();
-            }
-            btnEnter = findViewById(R.id.btnEnter);
-            btnEnter.setOnClickListener(this);
-            btnDrop = findViewById(R.id.btnDrop);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this, android.R.layout.simple_spinner_dropdown_item, people);
-            btnDrop.setAdapter(adapter);
-            auth = FirebaseAuth.getInstance();
-            etEmail = findViewById(R.id.etEmail);
-            etPassword = findViewById(R.id.etPassword);
-            tvError = findViewById(R.id.tvError);
-            tvSignUp = findViewById(R.id.tvSignUp);
-            tvSignUp.setOnClickListener(this);
         }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_dropdown_item, people);
+        btnDrop.setAdapter(adapter);
     }
+
 
     @Override
     public void onClick(View v) {

@@ -36,8 +36,13 @@ public class ItemList extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
         lv = findViewById(R.id.lvItems);
+        if(home!=null){
         home=DataManager.GetHome(getIntent().getStringExtra("EMAIL"));
-        person=DataManager.GetPerson(home,getIntent().getStringExtra("PERSON"));
+        person=DataManager.GetPerson(home,getIntent().getStringExtra("PERSON"));}
+        else{
+            home= new Home("email");
+            person=new Person("email");
+        }
         Items i1 = new Items("keys","id","email");
         if (itemList == null) {
             itemList = new ArrayList<Items>();

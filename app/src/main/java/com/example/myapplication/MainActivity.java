@@ -44,9 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             home = DataManager.GetHome(email);
         }
         else
-        {Intent intent =new Intent(this,LoginActivity.class);
-            startActivityForResult(intent,0);
-        }
+            home= new Home("email");
+
         person=DataManager.GetPerson(home,getIntent().getStringExtra("NAME"));
     }
 
@@ -73,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v == btnItemList) {
             Intent intent = new Intent(this, ItemList.class);
-            intent.putExtra("EMAIL", getIntent().getStringExtra(email));
-            intent.putExtra("PERSON",getIntent().getStringExtra(person.getName()));
+          //  intent.putExtra("EMAIL", getIntent().getStringExtra(email));
+        //    intent.putExtra("PERSON",getIntent().getStringExtra(person.getName()));
             startActivityForResult(intent, 0);
         }
         if (v == btnAlert) {
