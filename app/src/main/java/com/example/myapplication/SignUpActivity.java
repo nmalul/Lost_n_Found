@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -28,15 +29,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseDatabase db;
     Button btnEnter;
     TextView tvError;
-    Intent intent;
 EditText etEmail,etPassword;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-
 
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
@@ -46,6 +44,12 @@ EditText etEmail,etPassword;
         tvError=findViewById(R.id.tvError);
         DatabaseReference dbRef=DBManager.getDatabase().getReference("message");
         dbRef.setValue("hello");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 
     @Override
@@ -64,6 +68,7 @@ EditText etEmail,etPassword;
                             home.AddPerson(person);
                             Toast.makeText(SignUpActivity.this, home.getPeople().get(0).getEmail(), Toast.LENGTH_LONG).show();
                             DataManager.AddNewHome(home);
+                            Intent intent=new Intent(SignUpActivity.this,EditPerson.class);
                             intent.putExtra(etEmail.getText().toString(),"EMAIL");
                             startActivityForResult(intent,0);
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {

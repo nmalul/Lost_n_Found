@@ -64,7 +64,7 @@ Person person;
             if (DataManager.GetHomes().get(i).getEmail().equals(etEmail.getText().toString())) {
                 home = DataManager.GetHomes().get(i);
                 for (int j = 0; j < home.getPeople().size(); j++) {
-                    people[j] = home.getPeople().get(i).getItems().toString();
+                    people[j] = home.getPeople().get(j).getName().toString();
                 }
             }
         }
@@ -81,32 +81,28 @@ Person person;
         }
         if(v==btnEnter) {
 
-            if (!etEmail.getText().toString() .equals("") && !etPassword.getText().toString().equals("")&&!btnDrop.getSelectedItem().equals(null)) {
+            if (!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")/*&&btnDrop.getSelectedItem()!=null*/) {
                 DBManager.getAuth().signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("User Auth", "User Sign in successfully");
-                            for(int i=0;i<home.getPeople().size();i++){
-                                if(home.getPeople().get(i).getName().equals(btnDrop.getSelectedItem().toString())){
-                                    person=home.getPeople().get(i);
-                                }
-                            }
                             getIntent().putExtra("EMAIL",etEmail.getText().toString());
-                            getIntent().putExtra("PERSON",person.getName());
-                            finish();
+                            Intent intent=new Intent(LoginActivity.this,PersonPicker.class);
+                            intent.putExtra("EMAIL",etEmail.getText().toString());
+                            startActivityForResult(intent,0);
                         } else if (task.getException() instanceof FirebaseAuthInvalidUserException) {
                             Log.d("User Auth", "problem");
                         }
                     }
                 });
             }
-            else if(etEmail.getText().toString().equals("")& etPassword.getText().toString().equals("")) {
+            else if(etEmail.getText().toString().equals("")&& etPassword.getText().toString().equals("")) {
                 etEmail.setError("please enter email");
                 etPassword.setError("please enter password");
                 tvError.setText("email and password are empty");
             }
-            else if(etEmail.getText().toString().equals("")&!etPassword.getText().toString().equals("")){
+            else if(etEmail.getText().toString().equals("")&&!etPassword.getText().toString().equals("")){
                 etPassword.setError("please enter email");
                 tvError.setText("email is empty");
             }

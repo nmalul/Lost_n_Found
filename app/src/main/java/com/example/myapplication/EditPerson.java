@@ -42,7 +42,6 @@ public class EditPerson extends AppCompatActivity implements View.OnClickListene
                 Intent intent=new Intent(this,SignUpActivity.class);
                 Person person=new Person(etName.getText().toString());
                 DataManager.AddNewPerson(person,DataManager.GetHome(email));
-                intent.putExtra("OVER","over");
                 setResult(RESULT_OK,intent);
                 finish();
             }
@@ -52,6 +51,7 @@ public class EditPerson extends AppCompatActivity implements View.OnClickListene
         }
         else if (btnCancel==v){
             setResult(RESULT_CANCELED,null);
+            getIntent().putExtra("PERSON",etName.getText().toString());
             finish();
         }
 
