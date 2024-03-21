@@ -13,10 +13,10 @@ import java.util.List;
 public class PersonAdapter extends ArrayAdapter<Person> {
     Context context;
     List<Person> objects;
-    TextView tvPeople;
+    TextView tvPerson;
 
 
-    public PersonAdapter(Context context,int resource,int texViewResourceId,List<Items>objects){
+    public PersonAdapter(Context context,int resource,int texViewResourceId,List<Person>objects){
         super(context,resource);
 
 
@@ -25,11 +25,11 @@ public class PersonAdapter extends ArrayAdapter<Person> {
     }
     public View getView(int position, View converView, ViewGroup parent){
         LayoutInflater layoutInflater=((Activity)context).getLayoutInflater();
-        View view=layoutInflater.inflate(R.layout.item,parent,false);
-        tvPeople=(TextView) view.findViewById(R.id.tvItem);
+        View view=layoutInflater.inflate(R.layout.person_tab,parent,false);
+        tvPerson=(TextView) view.findViewById(R.id.tvPerson);
 
-        Items temp=objects.get(position);
-        tvPeople.setText(temp.getItem());
+        Person temp=objects.get(position);
+        tvPerson.setText(temp.getName());
         return view;
     }
 
