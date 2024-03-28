@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,10 +18,10 @@ public class PersonPicker extends AppCompatActivity implements View.OnClickListe
     static ArrayList<Person> personList;
     ListView lv;
     PersonAdapter personAdapter;
-    Button btnAdd,btnEdit;
+    Button btnAdd, btnEdit;
     Person lastSelected;
-    String name,id;
-    ListView lvPeople;
+    String name, id;
+   // ListView lvPeople;
     Home home;
     Person person;
     Boolean edit;
@@ -33,40 +32,46 @@ public class PersonPicker extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_picker);
         lv = findViewById(R.id.lvPeople);
-        if(home==null){
-            home=DataManager.GetHome(getIntent().getStringExtra("EMAIL"));
-            person=DataManager.GetPerson(home,name);
-            }
-        else{
-            home= new Home("email");
-            person=new Person("email");
+
+        Log.d("PersonPicker", "personList size before checking: " + (personList != null ? personList.size() : 0));
+
+        if (home == null) {
+            home = DataManager.GetHome(getIntent().getStringExtra("EMAIL"));
+        } else {
+            home = new Home("email");
+            person = new Person("email");
         }
+
+        Log.d("PersonPicker", "home size: " + home.getPeople().size());
+
         if (personList == null) {
-            personList=new ArrayList<>();
+            personList = new ArrayList<>();
             personList.addAll(home.getPeople());
         }
+
+        Log.d("PersonPicker", "personList size after population: " + personList.size());
+
         personAdapter = new PersonAdapter(this, 0, 0, personList);
         lv.setAdapter(personAdapter);
-        lvPeople=findViewById(R.id.lvPeople);
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-           lastSelected = personAdapter.getItem(position);
-           if (edit != true) {
-            Intent intent = new Intent(PersonPicker.this, MainActivity.class);
-            getIntent().putExtra("NAME", lastSelected.getName());
-            startActivityForResult(intent, 0);
-         } else {
-         Intent intent = new Intent(PersonPicker.this, EditPerson.class);
-         getIntent().putExtra("NAME", lastSelected.getName());
-         startActivityForResult(intent, 0);
-         }
-    }
- });
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                lastSelected = personAdapter.getItem(position);
+                if (edit != true) {
+                    Intent intent = new Intent(PersonPicker.this, MainActivity.class);
+                    getIntent().putExtra("NAME", lastSelected.getName());
+                    startActivityForResult(intent, 0);
+                } else {
+                    Intent intent = new Intent(PersonPicker.this, EditPerson.class);
+                    getIntent().putExtra("NAME", lastSelected.getName());
+                    startActivityForResult(intent, 0);
+                }
+            }
+        });
+
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,20 +91,18 @@ public class PersonPicker extends AppCompatActivity implements View.OnClickListe
                     name = data.getExtras().getString("NAME");
                     lastSelected.setName(name);
                     personAdapter.notifyDataSetChanged();
-                }
-                else
-                    Toast.makeText(this,"data canceld",Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(this, "data canceld", Toast.LENGTH_LONG).show();
             } else if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
                     name = data.getExtras().getString("NAME");
-                    id=data.getExtras().getString("ID");
+                    id = data.getExtras().getString("ID");
                     Person Person = new Person(name);
-                    DataManager.AddNewPerson(person,home);
+                    DataManager.AddNewPerson(person, home);
                     personAdapter.add(person);
                     personAdapter.notifyDataSetChanged();
-                }
-                else
-                    Toast.makeText(this,"data canceld",Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(this, "data canceld", Toast.LENGTH_LONG).show();
             }
             Toast.makeText(this, "data saved", Toast.LENGTH_LONG).show();
         }
@@ -107,11 +110,10 @@ public class PersonPicker extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(btnAdd==v){
-            Intent intent=new Intent(PersonPicker.this,EditPerson.class);
-            intent.putExtra("NAME",lastSelected.getName());
-            startActivityForResult(intent,0);
+        if (btnAdd == v) {
+            Intent intent = new Intent(PersonPicker.this, EditPerson.class);
+            intent.putExtra("NAME", lastSelected.getName());
+            startActivityForResult(intent, 0);
         }
     }
 }
-
